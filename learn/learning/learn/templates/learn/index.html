@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}learn{% endblock %}
+
+{% block content %}
+<h1>you can learn anything here.</h1>
+    {% for chai in chai %}
+        <div class="chai-items">
+            <h2>{{ chai }}</h2>
+            <img src={{chai.image.url}} alt="" height=300 width=300>
+        </div>
+        <a href={% url 'learn_detail' chai.id %}>
+            <button type=button>Learn More</button>
+        </a>
+    
+    {% endfor %}
+ 
+{% endblock %}

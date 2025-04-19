@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-semibold text-gray-800 mb-6">Your Tasks</h1>
+  
+    <a href="{% url 'list:add_task' %}" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300 mb-6">Add New Task</a>
+  
+    <div class="space-y-6">
+      {% for task in tasks %}
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300">
+          <div class="flex justify-between items-center">
+            <div class="w-full">
+              <h2 class="text-xl font-semibold text-gray-800">{{ task.title }}</h2>
+              <p class="text-gray-600 mt-2">{{ task.description }}</p>
+              <small class="text-gray-500 mt-2 block">Created at: {{ task.created_at }}</small>
+            </div>
+            
+            <div class="flex flex-col space-y-2 items-end md:items-center md:flex-row md:space-x-2 md:space-y-0 mt-4 md:mt-0">
+              <span class="text-sm text-gray-500">
+                {% if task.completed %}
+                  <span class="text-green-500">Completed</span>
+                {% else %}
+                  <span class="text-red-500">Not Completed</span>
+                {% endif %}
+              </span>
+
+              {% if task.id %}
+                <!-- Toggle Status -->
+                <a href="{% url 'list:toggle_task' task.id %}" class="px-4 py-2 text-sm font-medium rounded-lg transition duration-300 
+                  {% if task.completed %}
+                    bg-yellow-500 hover:bg-yellow-600 text-white
+                  {% else %}
+                    bg-green-500 hover:bg-green-600 text-white
+                  {% endif %}">
+                  {% if task.completed %}
+                    Mark as Incomplete
+                  {% else %}
+                    Mark as Completed
+                  {% endif %}
+                </a>
+
+                <!-- Edit -->
+                <a href="{% url 'list:edit_task' task.id %}" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition duration-300">
+                  Edit
+                </a>
+
+                <!-- Delete -->
+                <a href="{% url 'list:delete_task' task.id %}" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg transition duration-300" onclick="return confirm('Are you sure you want to delete this task?');">
+                  Delete
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

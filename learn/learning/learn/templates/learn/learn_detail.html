@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}learn_detail{% endblock %}
+
+{% block content %}
+<h1>menu item as per the url</h1>
+   
+        <div class="chai-items">
+            <h2>{{ chai }}</h2>
+            <img src={{chai.image.url}} alt="" height=300 width=300>
+        </div>
+ 
+
+{% endblock %}
